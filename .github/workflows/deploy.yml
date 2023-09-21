@@ -17,7 +17,11 @@ jobs:
           npm run build
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.0
+        # uses: JamesIves/github-pages-deploy-action@4.1.0
+        uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
+          ACCESS_TOKEN: ${{ secrets.GH_DOCS }}
           branch: gh-pages
           folder: dist
+          # FOLDER: docs/_site
+          CLEAN: true
