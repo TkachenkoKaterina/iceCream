@@ -20,8 +20,26 @@ jobs:
         # uses: JamesIves/github-pages-deploy-action@4.1.0
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          ACCESS_TOKEN: ${{ secrets.GH_DOCS }}
+          # ACCESS_TOKEN: ${{ secrets.GH_DOCS }}
           branch: gh-pages
           folder: dist
           # FOLDER: docs/_site
           CLEAN: true
+
+      - name: Set the value
+        id: step_one
+        run: |
+          echo "action_state=yellow" >> "$GITHUB_ENV"
+      - name: Use the value
+        id: step_two
+        run: |
+          printf '%s\n' "$action_state" # This will output 'yellow'
+
+      - name: Set color
+        id: random-color-generator
+        run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
+      - name: Get color
+        env:
+          SELECTED_COLOR:
+            ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}
+        run: echo "The selected color is $SELECTED_COLOR"
